@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Env
         run: |
-          echo ${{ inputs.env || "local" }}
+          echo ${{ inputs.env | "local" }}
           echo ${{ inputs.env }}
           echo $ENV
           env
