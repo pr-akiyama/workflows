@@ -3,8 +3,20 @@ on:
     tags:
       - v*
   workflow_dispatch:
-    branches:
-      - main
+    inputs:
+      env:
+        type: choice
+        description: '実行環境'
+        required: true
+        default: 'local'
+        options:
+          - 'local'
+          - 'staging'
+          - 'production'
+      environment :
+        type: environment
+        required: true
+        default: development
 
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
@@ -13,9 +25,13 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - name: Env
+        run: |
+          echo ${{ inputs.env }}
+          echo ${{ inputs.environment }}
+          echo $ENV
+          echo $ENVIRONMENT
+          env
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          ENV: ${{ inputs.env }}
