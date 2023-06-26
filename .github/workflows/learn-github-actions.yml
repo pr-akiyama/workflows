@@ -17,6 +17,10 @@ on:
         type: environment
         required: true
         default: development
+        options:
+          - 'local'
+          - 'staging'
+          - 'production'
 
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
